@@ -36,23 +36,58 @@ int main() {
     // 1 1 1 1 1
     // 0 0 1 0 0
 
-    int tabuleiro[10][10] = {
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 3, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 3, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 3, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 3, 3, 3, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    int tabuleiro[TAM][TAM] = {0}; // inicia tudo com 0 (água)
+    int cone[5][5] = {
+        {0, 0, 0, 0, 0},
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0}
+    };
 
-	};
-	
-	for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
-            printf("%d ", tabuleiro[i][j]);
+    int cone_i = 0; // linha onde a cone começa
+    int cone_j = 0; // coluna onde a cone começa
+
+    int cruz[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    int cruz_i = 5; // linha onde a cruz começa
+    int cruz_j = 5; // coluna onde a cruz começa
+
+    int octaedro[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    int octaedro_i = 0; // linha onde a octaedro começa
+    int octaedro_j = 5; // coluna onde a octaedro começa
+
+    // imprime o tabuleiro
+    for (int i = 0; i < TAM; i++) {
+        for (int j = 0; j < TAM; j++) {
+            if (i >= cone_i && i < cone_i + 5 &&
+                j >= cone_j && j < cone_j + 5) {
+                // posição dentro do cone → ajusta os índices
+                printf("%d ", cone[i - cone_i][j - cone_j]);
+            } else if ( i >= cruz_i && i < cruz_i + 5 &&
+                        j >= cruz_j && j < cruz_j + 5) {
+                    // posição dentro da cruz → ajusta os índices
+                    printf("%d ", cruz[i - cruz_i][j - cruz_j]);
+            } else if ( i >= octaedro_i && i < octaedro_i + 5 &&
+                        j >= octaedro_j && j < octaedro_j + 5) {
+                        // posição dentro do octaedro → ajusta os índices
+                        printf("%d ", octaedro[i - octaedro_i][j - octaedro_j]);
+            } else {
+                printf("%d ", tabuleiro[i][j]);
+            }
         }
         printf("\n");
     }
